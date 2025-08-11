@@ -1,7 +1,10 @@
 import { Router, Request, Response } from "express";
 const router: Router = Router();
 import * as taskController from "../controller/task.controller.ts";
+import { validateCreateTask } from "../../../validates/user/task.validate.ts";
 router.get("/", taskController.index);
 router.get("/detail/:id", taskController.detail);
-
+router.patch("/change-status/:id", taskController.changeStatus);
+router.post("/change-multi", taskController.changeMulti);
+router.post("/create", validateCreateTask, taskController.create);
 export const taskRoutes: Router = router;
