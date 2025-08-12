@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { Request, Response, NextFunction } from "express";
-import Status from "../../api/v1/models/status.model.ts";
-import Task from "../../api/v1/models/task.model.ts";
-import User from "../../api/v1/models/user.model.ts";
+import Status from "../../api/v1/models/status.model";
+import Task from "../../api/v1/models/task.model";
+import User from "../../api/v1/models/user.model";
 
 // Define interface for request body
 interface TaskRequestBody {
@@ -147,7 +147,7 @@ export const validateCreateTask = async (
 };
 
 export const validateEditTask = async (
-  req: Request<{}, {}, TaskRequestBody>,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {

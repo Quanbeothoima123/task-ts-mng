@@ -1,12 +1,35 @@
-const otpGenerator = require("otp-generator");
-const Otp = require("../api/v1/models/otp.model");
-const nodemailer = require("nodemailer");
+import otpGenerator from "otp-generator";
+import nodemailer from "nodemailer";
+import Otp from "../api/v1/models/otp.model"; // Cần đảm bảo file này có export đúng dạng
+import { Document } from "mongoose";
 
-module.exports.generateAndSendOtp = async (userId, subject, email = "") => {
+// Khai báo type cho biến môi trường để tránh lỗi undefined
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      EMAIL_USER: string;
+      EMAIL_PASSWORD: string;
+    }
+  }
+}
+
+// Interface cho OTP (tùy thuộc vào schema của bạn)
+interface IOtp extends Document {
+  userId: string;
+  email: string;
+  code: string;
+  expireAt: Date;
+}
+
+export const generateAndSendOtp = async (
+  userId: string,
+  subject: string,
+  email: string = ""
+): Promise<void> => {
   // Kiểm tra nếu đã có OTP chưa hết hạn
-  const existingOtp = await Otp.findOne({
+  const existingOtp = await Otp.findOne<IOtp>({
     userId: userId,
-    expireAt: { $gt: new Date() }, // OTP chưa hết hạn
+    expireAt: { $gt: new Date() },
   });
 
   if (existingOtp) {
@@ -25,8 +48,8 @@ module.exports.generateAndSendOtp = async (userId, subject, email = "") => {
 
   // Lưu OTP mới
   await Otp.create({
-    userId: userId,
-    email: email,
+    userId,
+    email,
     code: otpCode,
     expireAt,
   });
@@ -43,7 +66,7 @@ module.exports.generateAndSendOtp = async (userId, subject, email = "") => {
   const html = `<p>Mã OTP của bạn là: <b>${otpCode}</b></p><p>Mã có hiệu lực trong 5 phút.</p>`;
 
   const mailOptions = {
-    from: "phimanhnamquan@gmail.com",
+    from: process.env.EMAIL_USER,
     to: email,
     subject: subject,
     html: html,

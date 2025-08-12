@@ -1,7 +1,7 @@
-import Task from "../../v1/models/task.model.ts";
-import Status from "../models/status.model.ts";
-import paginationHelper from "../../../helpers/pagination.ts";
-import searchHelper from "../../../helpers/search.ts";
+import Task from "../../v1/models/task.model";
+import Status from "../models/status.model";
+import paginationHelper from "../../../helpers/pagination";
+import searchHelper from "../../../helpers/search";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 export const index = async (req: Request, res: Response) => {
@@ -116,7 +116,13 @@ export const changeMulti = async (req: Request, res: Response) => {
   const ids: string[] = req.body.ids;
   const key: string = req.body.key;
   const value: string = req.body.value;
-
+  enum KEY {
+    STATUS = "status",
+    DELETED = "deleted",
+    POSITION = "position",
+    ACTIVE = "active",
+    INACTIVE = "inactive",
+  }
   console.log("Nhận yêu cầu:", { ids, key, value });
 
   // Kiểm tra đầu vào hợp lệ
@@ -132,7 +138,7 @@ export const changeMulti = async (req: Request, res: Response) => {
 
   try {
     switch (key) {
-      case "status": {
+      case KEY.STATUS: {
         // Kiểm tra status hợp lệ
         if (!mongoose.Types.ObjectId.isValid(value)) {
           return res.status(400).json({ message: "Status ID không hợp lệ" });
@@ -157,7 +163,7 @@ export const changeMulti = async (req: Request, res: Response) => {
         });
       }
 
-      case "deleted": {
+      case KEY.DELETED: {
         // Cập nhật trạng thái deleted (giả sử value là true/false)
         const deletedValue = value === "true";
 
@@ -211,6 +217,48 @@ export const create = async (
       success: false,
       message: "Tạo task mới thất bại!",
       error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+};
+
+export const edit = async (
+  req: Request,
+  res: Response
+): Promise<void | Response<any, Record<string, any>>> => {
+  try {
+    // Check if req.user exists
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({
+        success: false,
+        message: "Người dùng chưa được xác thực!",
+      });
+    }
+    const account_id = req.user.id;
+    const updatedBy = {
+      account_id: account_id,
+      updatedAt: new Date(),
+    };
+
+    const taskId = req.params.id;
+    await Task.updateOne(
+      {
+        _id: taskId,
+        deleted: false,
+      },
+      {
+        ...req.body,
+        $push: { updatedBy: updatedBy },
+      }
+    );
+    return res.status(201).json({
+      success: true,
+      message: "Cập nhật task thành công!",
+    });
+  } catch (error) {
+    console.error(error); // Log nếu cần debug
+    return res.status(500).json({
+      success: false,
+      message: "Cập nhật thất bại!",
     });
   }
 };
