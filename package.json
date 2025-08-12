@@ -7,9 +7,17 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon --exec node --loader ts-node/esm --experimental-specifier-resolution=node index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --noEmit --project tsconfig.json",
+    "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "dependencies": {
     "@types/md5": "^2.3.5",
     "@types/nodemailer": "^6.4.17",

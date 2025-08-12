@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "CommonJS",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "outDir": "dist",
-    "rootDir": "./",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "allowImportingTsExtensions": false
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true
+  }
 }
