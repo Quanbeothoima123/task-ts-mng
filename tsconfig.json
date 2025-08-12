@@ -1,21 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "CommonJS",
     "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": "./",
     "strict": true,
-    "skipLibCheck": true,
-    "removeComments": true,
-    "declaration": true,
-    "emitDeclarationOnly": false,
-    "noEmit": false,
-    "types": ["node"],
-    "typeRoots": ["./src/types", "./node_modules/@types"],
-    "outDir": "dist"
+    "skipLibCheck": true
   },
-  "ts-node": {
-    "esm": true,
-    "transpileOnly": true
-  }
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
