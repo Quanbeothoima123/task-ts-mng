@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { generateRandomString } from "../../../helpers/generate";
+import { generateRandomString } from '../../../helpers/generate.js';
 const userSchema = new mongoose.Schema({
     fullName: String,
     email: String,

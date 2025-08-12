@@ -1,8 +1,8 @@
 import { Router } from "express";
 const router = Router();
-import { validateRegisterUser, validateLogin, validateForgotPassword, validateOtpPassword, validateResetPassword, } from "../../../validates/user/user.validate";
-import * as userController from "../controller/user.controller";
-import { requireAuth } from "../../../middlewares/auth.middleware";
+import { validateRegisterUser, validateLogin, validateForgotPassword, validateOtpPassword, validateResetPassword, } from '../../../validates/user/user.validate.js';
+import * as userController from '../controller/user.controller.js';
+import { requireAuth } from '../../../middlewares/auth.middleware.js';
 router.post("/register", validateRegisterUser, userController.register);
 router.post("/auth/:userId", userController.auth);
 router.post("/login", validateLogin, userController.login);

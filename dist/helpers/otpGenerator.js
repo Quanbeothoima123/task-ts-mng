@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
-import Otp from "../api/v1/models/otp.model";
+import Otp from '../api/v1/models/otp.model.js';
 export const generateAndSendOtp = (userId_1, subject_1, ...args_1) => __awaiter(void 0, [userId_1, subject_1, ...args_1], void 0, function* (userId, subject, email = "") {
     const existingOtp = yield Otp.findOne({
         userId: userId,

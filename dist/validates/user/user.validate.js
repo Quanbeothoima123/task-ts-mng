@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { validateEmail } from "../../utils/validate.helper";
-import User from "../../api/v1/models/user.model";
+import { validateEmail } from '../../utils/validate.helper.js';
+import User from '../../api/v1/models/user.model.js';
 export const validateRegisterUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { fullName, email, password } = req.body;
     const errors = [];

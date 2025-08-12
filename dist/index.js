@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import * as database from "./config/database";
-import mainV1Routes from "./api/v1/routes/index.route";
+import * as database from './config/database.js';
+import mainV1Routes from './api/v1/routes/index.route.js';
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";

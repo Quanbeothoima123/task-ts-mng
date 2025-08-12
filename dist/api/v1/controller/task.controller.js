@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Task from "../../v1/models/task.model";
-import Status from "../models/status.model";
-import paginationHelper from "../../../helpers/pagination";
-import searchHelper from "../../../helpers/search";
+import Task from '../../v1/models/task.model.js';
+import Status from '../models/status.model.js';
+import paginationHelper from '../../../helpers/pagination.js';
+import searchHelper from '../../../helpers/search.js';
 import mongoose from "mongoose";
 export const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

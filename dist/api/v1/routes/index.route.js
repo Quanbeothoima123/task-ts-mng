@@ -1,6 +1,6 @@
-import { taskRoutes } from "./task.route";
-import { userRoutes } from "./user.route";
-import { requireAuth } from "../../../middlewares/auth.middleware";
+import { taskRoutes } from './task.route.js';
+import { userRoutes } from './user.route.js';
+import { requireAuth } from '../../../middlewares/auth.middleware.js';
 const mainV1Routes = (app) => {
     const version = "/api/v1";
     app.use(version + "/tasks", requireAuth, taskRoutes);

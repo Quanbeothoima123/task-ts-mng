@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import User from "../api/v1/models/user.model";
+import User from '../api/v1/models/user.model.js';
 export const validateEmail = (email_1, ...args_1) => __awaiter(void 0, [email_1, ...args_1], void 0, function* (email, options = {}) {
     const { required = true, mustExist = false, mustNotExist = false } = options;
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;

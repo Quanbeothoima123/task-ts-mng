@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import mongoose from "mongoose";
-import Status from "../../api/v1/models/status.model";
-import Task from "../../api/v1/models/task.model";
-import User from "../../api/v1/models/user.model";
+import Status from '../../api/v1/models/status.model.js';
+import Task from '../../api/v1/models/task.model.js';
+import User from '../../api/v1/models/user.model.js';
 export const validateCreateTask = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, status, content, timeStart, timeFinish, listUser, parentTaskId, } = req.body;
     const errors = [];

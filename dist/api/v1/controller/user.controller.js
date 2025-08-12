@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import md5 from "md5";
-import User from "../models/user.model";
-import Otp from "../models/otp.model";
-import { generateAndSendOtp } from "../../../helpers/otpGenerator";
-import { generateRandomString } from "../../../helpers/generate";
+import User from '../models/user.model.js';
+import Otp from '../models/otp.model.js';
+import { generateAndSendOtp } from '../../../helpers/otpGenerator.js';
+import { generateRandomString } from '../../../helpers/generate.js';
 export const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = {
